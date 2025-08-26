@@ -8,7 +8,7 @@ import passwordRouter from "./routes/password.routes";
 import path from "path";
 import tenantProfileRouter from "./routes/tenantProfile.routes";
 import bookingRouter from "./routes/booking.routes";
-import dashboardRoutes from "./routes/dashboard.routes";
+// import dashboardRoutes from "./routes/dashboard.routes";
 import cookieParser from "cookie-parser";
 import cors from 'cors'
 
@@ -32,7 +32,7 @@ app.use("/api",commissionRouter);
 app.use("/api",passwordRouter);
 app.use("/api",tenantProfileRouter);
 app.use("/api",bookingRouter);
-app.use("/api",dashboardRoutes);
+// app.use("/api",dashboardRoutes);
 
 
 

@@ -10,15 +10,13 @@ import {
   Button,
   Grid,
   TextField,
-  FormControl,
-  Select,
-  InputLabel,
   MenuItem,
   DialogContent,
   DialogActions,
   Dialog,
   DialogTitle,
   Typography,
+  Box,
 } from "@mui/material";
 import {
   deletePropertyById,
@@ -27,13 +25,18 @@ import {
   getPropertyByPropertyId,
   updateProperty,
 } from "../../Services/allApi";
+import { toast } from "react-toastify";
+
+
 
 export default function MyProperties() {
   const [properties, setProperties] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
   const [agents, setAgents] = useState<{ id: number; name: string }[]>([]);
+  const [selectedPropertyDelete, setSelectedPropertyDelete] = useState<number|null>(null);
 
   const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [editForm, setEditForm] = useState({
     title: "",
     city: "",
@@ -140,17 +143,28 @@ export default function MyProperties() {
     fetchAgents();
   }, []);
 
-  const handleDelete = async (id: number) => {
-    try {
-      console.log("Deleting property", id);
-      await deletePropertyById(id);
+  const handleDeleteClick =  (id:number) => {
+      setDeleteOpen(true);
+      setSelectedPropertyDelete(id)
 
+      console.log(" opening modal for Deleting property",);
+  };
+
+    const handleDelete = async () => {
+    try {
+      console.log("Deleting property");
+      await deletePropertyById(selectedPropertyDelete!);
       // Immediately remove it from UI
-      setProperties((prev: any) => prev.filter((p: any) => p.id !== id));
+      setProperties((prev: any) => prev.filter((p: any) => p.id !== selectedPropertyDelete));
+      setDeleteOpen(false)
+      toast.success("Property deleted Successfully")
     } catch (error) {
       console.error("Failed to delete property:", error);
+      toast.error("Failed to delete the property")
     }
   };
+
+
 
   return (
     <>
@@ -192,7 +206,8 @@ export default function MyProperties() {
                   <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => handleDelete(property.id)}
+                    onClick={() => handleDeleteClick(property.id)}
+                  // onClick={()=>setDeleteOpen(true)}
                   >
                     Delete
                   </Button>
@@ -313,6 +328,33 @@ export default function MyProperties() {
             Update
           </Button>
         </DialogActions>
+      </Dialog>
+
+
+      {/* delete modal  */}
+
+      <Dialog open={deleteOpen} maxWidth="sm" fullWidth>
+        <DialogContent>
+          <Grid container spacing={2} justifyContent={"space-between"}>
+            <Grid>
+            <Typography>
+                Are you sure .Do you want to delete the Property?
+            </Typography>
+            </Grid>
+            <Grid>
+              <Box>
+                <Button onClick={()=>setDeleteOpen(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={()=>handleDelete()}>
+                  Delete
+                </Button>
+              </Box>
+            </Grid>
+
+          </Grid>
+
+        </DialogContent>
       </Dialog>
     </>
   );
