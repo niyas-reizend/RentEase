@@ -45,6 +45,9 @@ export const loginUser = async (email: string, password: string) => {
   if (!user) {
     throw new Error("User not found");
   }
+  if(user.isBlocked){
+    throw new Error("You are Blocked by the Admin")
+  }
 
   const isPasswordValid = await comparePassword(password, user.password);
 

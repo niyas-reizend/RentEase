@@ -2,9 +2,6 @@
 import { Card, CardMedia, CardContent, Typography, Box, Chip,Button, IconButton, Dialog, DialogContent } from "@mui/material";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-// import Slider from "react-slick"; // npm install react-slick slick-carousel
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";

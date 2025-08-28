@@ -11,11 +11,8 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
 import { getOwnerAgreements } from "../../Services/allApi";
-// import { useAuth } from "../../context/AuthContext";
-// import type { InfoRounded } from "@mui/icons-material";
+import downloadPDF from "../../Utils/downloadPDF";
 
 interface User {
   id: number;
@@ -60,46 +57,6 @@ const OwnAgreements = () => {
     };
     fetchAgreements();
   }, []);
-
-  const downloadPDF = (agreement: Agreement) => {
-    const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.text("Rental Agreement", 14, 20);
-
-    doc.setFontSize(12);
-    doc.text(`Agreement ID: ${agreement.id}`, 14, 30);
-    doc.text(`Start Date: ${agreement.startDate}`, 14, 40);
-    doc.text(`End Date: ${agreement.endDate}`, 14, 50);
-
-    // Agreement financials
-    autoTable(doc, {
-      startY: 60,
-      head: [["Rent Amount", "Fixed Deposit"]],
-      body: [[agreement.rentAmount, agreement.fixedDeposit]],
-    });
-
-    // Parties involved
-    autoTable(doc, {
-      startY: doc.lastAutoTable.finalY + 10,
-      head: [["Role", "Name", "Email"]],
-      body: [
-        ["Owner", agreement.owner.name, agreement.owner.email],
-        ["Tenant", agreement.tenant.name, agreement.tenant.email],
-        agreement.property.agent.name
-          ? ["Agent", agreement.property.agent.name, agreement.property.agent.email]
-          : [],
-      ].filter((row) => row.length > 0),
-    });
-
-    // Property details
-    autoTable(doc, {
-      startY: doc.lastAutoTable.finalY + 10,
-      head: [["Property Title", "Location"]],
-      body: [[agreement.property.title, agreement.property.city]],
-    });
-
-    doc.save(`Agreement_${agreement.id}.pdf`);
-  };
 
   if (loading) return <CircularProgress />;
 

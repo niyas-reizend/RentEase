@@ -28,7 +28,7 @@ export default function TenantDashboard() {
   const [openEnquiry, setOpenEnquiry] = useState(false);
   const [openBooking, setOpenBooking] = useState(false);
   // const [bookingProperty, setBookingProperty] = useState(null);
-  const {user} = useAuth();
+  const {user,logout} = useAuth();
 
 
   // Tenant-proposed values
@@ -79,6 +79,7 @@ export default function TenantDashboard() {
       message: enquiryText,
     };
     await sendEnquiry(data);
+    toast.success("Enquiry Send ")
 
     setOpenEnquiry(false);
     setEnquiryText("");
@@ -120,12 +121,24 @@ const handleBooking=async()=>{
       toast.success("Booking Successfull.")
       setOpenBooking(false);
 
-  }catch(error:any){
-    console.log("Error in booking ",error);
-    toast.error(error.data.error);
-    
-
+  }catch (err: any) {
+  if (err.response) {
+    if (err.response.status === 403) {
+      // Blocked user
+      alert(err.response.data.error); 
+      logout();
+      // navigate("/blocked"); // redirect to a Blocked page
+    } else if (err.response.status === 401) {
+      alert("User not found. Please log in again.");
+      // logout();
+      // navigate("/login");
+    } else {
+      alert("Error: " + err.response.data.error);
+    }
+  } else {
+    console.error("Network or server error", err.message);
   }
+}
 }
 
   if (loading) return <CircularProgress />;
@@ -138,7 +151,7 @@ const handleBooking=async()=>{
       <Grid container spacing={3}>
         {properties.map((property) => (
           <Grid size={{ xs: 12, sm: 6, md: 4, lg:3 }} key={property.id}>
-            <Property Card
+            <PropertyCard
               title={property.title}
               city={property.city}
               state={property.state}
@@ -332,3 +345,5 @@ const handleBooking=async()=>{
 </>
   );
 }
+
+

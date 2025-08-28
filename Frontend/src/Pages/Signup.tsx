@@ -53,18 +53,37 @@ const Signup = () => {
   return (
     <div>
       <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+      }}
       >
         <Paper
           elevation={5}
           sx={{ p: 4, width: 500, borderRadius: 5 }}
         >
+
+          <Typography
+            variant="h2"            
+            sx={{ fontWeight: "bold",
+               mb: 5 ,
+               textAlign:"center",
+              background: "linear-gradient(45deg, #1976d2 30%, #2196f3 90%)",
+              backgroundClip: "text",
+              textFillColor: "transparent",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+            gutterBottom
+          >
+            RenatEase
+          </Typography>
           <Typography
             variant="h4"
-            sx={{ fontWeight: "bold", mb: 5 }}
+            sx={{ fontWeight: "bold", mb: 5 ,color:" #1976d2"}}
             gutterBottom
           >
             Sign Up

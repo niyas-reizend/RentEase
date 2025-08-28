@@ -29,14 +29,12 @@ export const sidebarLinks = {
   ],
   tenant: [
     { text: "Dashboard", icon: <Dashboard />, path: "/tenant-dashboard" },
-    // { text: "Search Properties", icon: <Home />, path: "/properties" },
     { text: "My Profile", icon: <AccountCircle />, path: "/tenantprofile" },
     { text: "My Enquiries", icon: <Mail />, path: "/enquiries" },
     { text: "My Bookings", icon: <BookOnline />, path: "/bookings" },
     { text: "My Agreements", icon: <BookOnline />, path: "/tenantAgreements" },
   ],
   agent: [
-    // { text: "Dashboard", icon: <Dashboard />, path: "/agent-dashboard" },
     { text: "Properties", icon: <Apartment />, path: "/agent/properties" },
     { text: "Commissions", icon: <AttachMoney />, path: "/agent/commissions" },
   ],

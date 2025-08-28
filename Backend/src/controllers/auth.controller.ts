@@ -83,7 +83,8 @@ export const handleLogin = async (req: Request, res: Response) => {
   } catch (err: any) {
     if (
       err.message === "User not found" ||
-      err.message === "Invalid password"
+      err.message === "Invalid password"||
+      err.message ==="You are Blocked by the Admin"
     ) {
       return res.status(401).json({ error: err.message });
     }

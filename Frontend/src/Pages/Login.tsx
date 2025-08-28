@@ -26,9 +26,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   // const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -47,175 +46,89 @@ const Login = () => {
       switch (user.role) {
         case "admin":
           navigate("/admin-dashboard");
-          toast.success("Login Successfull.")
+          toast.success("Login Successfull.");
           break;
         case "owner":
           navigate("/owner-dashboard");
-          toast.success("Login Successfull.")
+          toast.success("Login Successfull.");
 
           break;
         case "tenant":
           navigate("/tenant-dashboard");
-          toast.success("Login Successfull.")
+          toast.success("Login Successfull.");
 
           break;
         case "agent":
           navigate("/agent/properties");
-          toast.success("Login Successfull.")         
+          toast.success("Login Successfull.");
           break;
         default:
           navigate("/");
       }
     } catch (err: any) {
-      if (err.data && err.data.error) {
-        // Backend sent an error response
-        toast.error(err.data.error);
-      } else if (err.request) {
-        // No response received from backend
-        toast.error("No response from server. Please try again later.");
-      } else {
-        // Something else happened
-        toast.error("An unexpected error occurred.");
-      }
+      const errMsg =
+        (err.data && err.data.error) ||
+        err.request ||
+        "An unexpected error occurred.";
+      toast.error(errMsg);
+      // if (err.data && err.data.error) {
+      //   // Backend sent an error response
+      //   toast.error(err.data.error);
+      // } else if (err.request) {
+      //   // No response received from backend
+      //   toast.error("No response from server. Please try again later.");
+      // } else {
+      //   // Something else happened
+      //   toast.error("An unexpected error occurred.");
+      // }
     }
   };
 
   return (
-    // <div>
-    //   <Box
-    //     display="flex"
-    //     justifyContent="center"
-    //     alignItems="center"
-    //     minHeight="100vh"
-    //   >
-    //     <Paper
-    //       elevation={5}
-    //       sx={{ p: 4, width: 450, height: 450, borderRadius: 5 }}
-    //     >
-    //       <Typography
-    //         variant="h4"
-    //         sx={{ color: "primary", fontWeight: "bold", mb: 5 }}
-    //         gutterBottom
-    //       >
-    //         Login
-    //       </Typography>
-    //       <form onSubmit={handleSubmit}>
-    //         <TextField
-    //           label="Email"
-    //           name="email"
-    //           type="email"
-    //           fullWidth
-    //           margin="normal"
-    //           onChange={handleChange}
-    //           required
-    //           sx={{
-    //             mb: 4,
-    //             "& .MuiOutlinedInput-root": {
-    //               "&.Mui-focused fieldset": {
-    //                 borderColor: "#129990", // Your focus color
-    //               },
-    //             },
-    //           }}
-    //         />
-    //         <TextField
-    //           label="Password"
-    //           name="password"
-    //           type={showPassword ? "text" : "password"}
-    //           fullWidth
-    //           margin="normal"
-    //           onChange={handleChange}
-    //           required
-    //           sx={{
-    //             mb: 4,
-    //             "& .MuiOutlinedInput-root": {
-    //               "&.Mui-focused fieldset": {
-    //                 borderColor: "#129990", // Your focus color
-    //               },
-    //             },
-    //           }}
-    //           InputProps={{
-    //             endAdornment: (
-    //               <InputAdornment position="end">
-    //                 <IconButton
-    //                   onClick={() => setShowPassword((prev) => !prev)}
-    //                   edge="end"
-    //                 >
-    //                   {showPassword ? <VisibilityOff /> : <Visibility />}
-    //                 </IconButton>
-    //               </InputAdornment>
-    //             ),
-    //           }}
-    //         />
-    //         <Button
-    //           type="submit"
-    //           variant="contained"
-    //           fullWidth
-    //           sx={{ height: 50, mt: 2 }}
-    //         >
-    //           <h2>Login</h2>
-    //         </Button>
-
-    //         <Box mt={0} textAlign="right">
-    //           <Link
-    //             to="/forgot-password"
-                
-    //             style={{ textDecoration: "none", color: "#1976d2",  fontSize:"14px"}}
-    //           >
-    //             Forgot Password? Click Here.
-    //           </Link>
-    //         </Box>
-    //         <Typography variant="body2" align="center" sx={{ mt: 1  }}>
-    //           Don't have an account? <Link to="/">SignUp</Link>
-    //         </Typography>
-    //       </form>
-    //     </Paper>
-    //   </Box>
-    // </div>
-
-
-
- <Box
+  
+    <Box
       sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-        p: isMobile ? 2 : 4
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+        p: isMobile ? 2 : 4,
       }}
     >
       <Paper
         elevation={10}
         sx={{
           p: isMobile ? 3 : 4,
-          width: '100%',
+          width: "100%",
           maxWidth: 450,
           borderRadius: 4,
-          background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(10px)',
-          boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
+          background: "rgba(255, 255, 255, 0.95)",
+          backdropFilter: "blur(10px)",
+          boxShadow: "0 8px 32px rgba(31, 38, 135, 0.15)",
         }}
       >
-        <Box sx={{ textAlign: 'center', mb: 4 }}>
-          <AccountCircle 
-            sx={{ 
-              fontSize: 60, 
-              color: 'primary.main',
-              background: 'linear-gradient(45deg,rgb(240, 242, 245) 30%,rgb(13, 113, 196) 90%)',
-              borderRadius: '50%',
+        <Box sx={{ textAlign: "center", mb: 4 }}>
+          <AccountCircle
+            sx={{
+              fontSize: 60,
+              color: "primary.main",
+              background:
+                "linear-gradient(45deg,rgb(240, 242, 245) 30%,rgb(13, 113, 196) 90%)",
+              borderRadius: "50%",
               p: 1,
-              mb: 2
-            }} 
+              mb: 2,
+            }}
           />
           <Typography
             variant="h4"
-            sx={{ 
-              fontWeight: 'bold', 
-              background: 'linear-gradient(45deg, #1976d2 30%, #2196f3 90%)',
-              backgroundClip: 'text',
-              textFillColor: 'transparent',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+            sx={{
+              fontWeight: "bold",
+              background: "linear-gradient(45deg, #1976d2 30%, #2196f3 90%)",
+              backgroundClip: "text",
+              textFillColor: "transparent",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
             }}
             gutterBottom
           >
@@ -237,11 +150,11 @@ const Login = () => {
             required
             sx={{
               mb: 3,
-              '& .MuiOutlinedInput-root': {
+              "& .MuiOutlinedInput-root": {
                 borderRadius: 3,
-                '&.Mui-focused fieldset': {
-                  borderColor: '#2196f3',
-                  borderWidth: 2
+                "&.Mui-focused fieldset": {
+                  borderColor: "#2196f3",
+                  borderWidth: 2,
                 },
               },
             }}
@@ -263,11 +176,11 @@ const Login = () => {
             required
             sx={{
               mb: 3,
-              '& .MuiOutlinedInput-root': {
+              "& .MuiOutlinedInput-root": {
                 borderRadius: 3,
-                '&.Mui-focused fieldset': {
-                  borderColor: '#2196f3',
-                  borderWidth: 2
+                "&.Mui-focused fieldset": {
+                  borderColor: "#2196f3",
+                  borderWidth: 2,
                 },
               },
             }}
@@ -293,14 +206,14 @@ const Login = () => {
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ 
-              height: 50, 
-              mt: 2, 
+            sx={{
+              height: 50,
+              mt: 2,
               borderRadius: 3,
-              fontSize: '1.1rem',
-              fontWeight: 'bold',
-              background: 'linear-gradient(45deg, #1976d2 30%, #2196f3 90%)',
-              boxShadow: '0 3px 5px 2px rgba(33, 150, 243, .2)'
+              fontSize: "1.1rem",
+              fontWeight: "bold",
+              background: "linear-gradient(45deg, #1976d2 30%, #2196f3 90%)",
+              boxShadow: "0 3px 5px 2px rgba(33, 150, 243, .2)",
             }}
           >
             Login
@@ -311,19 +224,19 @@ const Login = () => {
               href="/forgot-password"
               color="primary"
               size="small"
-              sx={{ textTransform: 'none', fontSize: '14px' }}
+              sx={{ textTransform: "none", fontSize: "14px" }}
             >
               Forgot Password?
             </Button>
           </Box>
-          
+
           <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-            Don't have an account?{' '}
-            <Button 
-              href="/signup" 
-              color="primary" 
+            Don't have an account?{" "}
+            <Button
+              href="/signup"
+              color="primary"
               size="small"
-              sx={{ textTransform: 'none', fontWeight: 'bold' }}
+              sx={{ textTransform: "none", fontWeight: "bold" }}
             >
               Sign Up
             </Button>
@@ -331,7 +244,6 @@ const Login = () => {
         </form>
       </Paper>
     </Box>
-
   );
 };
 

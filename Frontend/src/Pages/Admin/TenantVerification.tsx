@@ -87,7 +87,7 @@ const TenantVerification = () => {
             <TableCell>Email</TableCell>
             <TableCell>Document</TableCell>
             <TableCell>Status</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -111,7 +111,7 @@ const TenantVerification = () => {
                 </Typography>
               </TableCell>
               <TableCell>
-                {tenant.isVerified && (
+                {!tenant.isVerified && (
                   <Stack direction="row" spacing={2}>
                     <Button
                       variant="contained"
@@ -120,13 +120,7 @@ const TenantVerification = () => {
                     >
                       Verify
                     </Button>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => handleVerify(tenant.user?.id, false)}
-                    >
-                      Deny
-                    </Button>
+
                   </Stack>
                 )}
               </TableCell>

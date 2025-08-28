@@ -1,100 +1,4 @@
 
-// import { Button, Box } from "@mui/material";
-// import { useState, useEffect } from "react";
-// import { addProperty, getAllAgents } from "../../Services/allApi";
-// import AddPropertyDialog from "../../Components/AddPropertyDialogue";
-
-// export default function OwnerDashboard() {
-//   const [open, setOpen] = useState(false);
-//   const [form, setForm] = useState({
-//     title: "",
-//     description: "",
-//     rentAmount: "",
-//     fixedDepositAmount: "",
-//     address: "",
-//     city: "",
-//     state: "",
-//     amenities: "",
-//     agentId: "",
-//   });
-//   const [images, setImages] = useState<File[]>([]);
-//   const [agents, setAgents] = useState<{ id: number; name: string }[]>([]);
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     if (e.target.files) {
-//       setImages(Array.from(e.target.files));
-//     }
-//   };
-
-//   const handleSelectChange = (e: any) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async () => {
-//     const formData = new FormData();
-
-//     Object.entries(form).forEach(([key, value]) => {
-//       if (key === "amenities") {
-//         const amenitiesArray = value
-//           .split(",")
-//           .map((item) => item.trim())
-//           .filter((item) => item);
-//         formData.append(key, JSON.stringify(amenitiesArray));
-//       } else {
-//         formData.append(key, value);
-//       }
-//     });
-
-//     images.forEach((file) => formData.append("images", file));
-//     formData.append("ownerId", localStorage.getItem("userId") || "");
-
-//     try {
-//       await addProperty(formData);
-//       setOpen(false);
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (open) {
-//       getAllAgents()
-//         .then((res) => {
-//           setAgents(res.data);
-//         })
-//         .catch((err) => console.error(err));
-//     }
-//   }, [open]);
-
-//   return (
-//     <>
-//       <Box>
-//         <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
-//           Add Property
-//         </Button>
-//       </Box>
-
-//       {/* Use the Dialog component */}
-//       <AddPropertyDialog
-//         open={open}
-//         onClose={() => setOpen(false)}
-//         form={form}
-//         agents={agents}
-//         handleChange={handleChange}
-//         handleSelectChange={handleSelectChange}
-//         handleFileChange={handleFileChange}
-//         handleSubmit={handleSubmit}
-//       />
-//     </>
-//   );
-// }
-
-
-
 import { Button,  Grid, Card, CardContent, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import {
@@ -136,9 +40,9 @@ export default function OwnerDashboard() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImages(Array.from(e.target.files));
-    }
+  if (e.target.files) {
+    setImages((prev) => [...prev, ...Array.from(e.target.files!)]);
+  }
   };
 
   const handleSelectChange = (e: any) => {
@@ -322,6 +226,7 @@ export default function OwnerDashboard() {
         handleSelectChange={handleSelectChange}
         handleFileChange={handleFileChange}
         handleSubmit={handleSubmit}
+        images={images}
       />
     </>
   );

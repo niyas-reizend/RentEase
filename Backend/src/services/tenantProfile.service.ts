@@ -27,8 +27,10 @@ export const createTenantProfile = async (userId: number, identityDocumentUrl: s
 export const getAllTenants = async () => {
 
     const tenants = await tenantProfileRepo.find({
-      relations: ["user"], // include User details
+      relations: ["user"],
+      order:{user:{id:'ASC'}} // include User details
     });
+    console.log("Tenants from controller",tenants)
     return tenants;
 
 };

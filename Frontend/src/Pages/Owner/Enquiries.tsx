@@ -93,7 +93,14 @@ const Enquiries = () => {
                 <TableCell>{enquiry.property?.title}</TableCell>
                 <TableCell>{enquiry.tenant?.name}</TableCell>
                 <TableCell>{enquiry.message}</TableCell>
-                <TableCell>{enquiry.reply || "No reply given"}</TableCell>
+                <TableCell
+                  sx={{
+                    color: enquiry.reply ? "black" : "red",
+                    fontWeight: enquiry.reply ? "normal" : "bold",
+                  }}
+                >
+                  {enquiry.reply || "No reply given"}
+                </TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
@@ -110,7 +117,7 @@ const Enquiries = () => {
 
       {/* Reply Modal */}
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogTitle >
+        <DialogTitle>
           Reply to Enquiry on :{selectedEnquiry?.property?.title}
         </DialogTitle>
         <DialogContent>
@@ -122,7 +129,7 @@ const Enquiries = () => {
             onChange={(e) => setReply(e.target.value)}
             label="Your reply"
             slotProps={{
-              inputLabel: { shrink: true }, 
+              inputLabel: { shrink: true },
             }}
           />
         </DialogContent>

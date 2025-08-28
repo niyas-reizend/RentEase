@@ -1,28 +1,3 @@
-// import "./App.css";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Login from "./Pages/Login";
-// import Signup from "./Pages/Signup";
-// import Unauthorized from "./Pages/Unauthorized";
-// import Navbar from "./Components/Navbar";
-// import ProtectedRoute from "./Components/ProtectedRoutes";
-// import Dashboard from "./Pages/Dashboard";
-
-// function App() {
-//   return (
-//     <>
-//       <BrowserRouter>
-//         <Routes>
-//           <Route path="/unauthorized" element={<Unauthorized/>}/>
-//           <Route path="/" element={<Signup/>}/>
-//           <Route path="/login" element={<Login/>}/>
-
-//         </Routes>
-//       </BrowserRouter>
-//     </>
-//   );
-// }
-
-// export default App;
 
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -30,7 +5,6 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Unauthorized from "./Pages/Unauthorized";
 import ProtectedRoute from "./Components/ProtectedRoutes";
-// import DashboardLayout from "./Components/Layouts/DashboardLayout"; // New layout
 import DashboardLayout from "./Layouts/DashboardLayout";
 import TenantDashboard from "./Pages/Tenant/TenantDashboard";
 import OwnerDashboard from "./Pages/Owner/OwnerDashboard";

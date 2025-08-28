@@ -2,6 +2,7 @@ import { Request,Response,NextFunction } from "express";
 
 import dataSource from "../database/datasource";
 import { User } from "../entities/User";
+import { handleLogout } from "../controllers/auth.controller";
 
 export const BlockMiddleware = async(req:any,res:Response,next:NextFunction)=>{
     try{
